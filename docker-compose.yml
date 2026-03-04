@@ -1,0 +1,35 @@
+services:
+ db:
+   image: postgres:15-alpine
+   container_name: db
+   restart: always
+   environment:
+     - POSTGRES_USER=miguel
+     - POSTGRES_PASSWORD=miguel
+     - POSTGRES_DB=scooter
+   ports:
+     - "5432:5432"
+   volumes:
+     - postgres_data:/var/lib/postgresql/data
+
+
+ api:
+   build: .
+   container_name: api
+   ports:
+     - "8000:8000"
+   volumes:
+     - ./app:/app/app
+     - ./tests:/app/tests
+     - ./alembic:/app/alembic
+     - ./alembic.ini:/app/alembic.ini
+   environment:
+     - DATABASE_URL=postgresql://miguel:miguel@db:5432/scooter
+   # El comando para arrancar la API directamente
+   command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+   depends_on:
+     - db
+
+
+volumes:
+ postgres_data:
