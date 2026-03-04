@@ -10,39 +10,39 @@ jobs:
     name: Run Pytest
     runs-on: ubuntu-latest
 
-  services:
-    postgres:
-      image: postgres:15-alpine
-      env:
-        POSTGRES_USER: user
-        POSTGRES_PASSWORD: user
-        POSTGRES_DB: scooter
-      ports:
-        - 5432:5432
-
-      options: >-
-        --health-cmd pg_isready
-        --health-interval 10s
-        --health-timeout 5s
-        --health-retries 5
-      
-    steps:
-      - name: Dercargar el código del repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Instalar dependencias
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Ejecutar migraciones y tests
+    services:
+      postgres:
+        image: postgres:15-alpine
         env:
-          DB_URL: postgresql://user:user@localhost:5432/scooter
-        run: |
-          alembic upgrade head
-          pytest -v
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: user
+          POSTGRES_DB: scooter
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      steps:
+        - name: Dercargar el código del repositorio
+          uses: actions/checkout@v4
+
+        - name: Configurar Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: "3.13"
+
+        - name: Instalar dependencias
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+        - name: Ejecutar migraciones y tests
+          env:
+            DB_URL: postgresql://user:user@localhost:5432/scooter
+          run: |
+            alembic upgrade head
+            pytest -v
