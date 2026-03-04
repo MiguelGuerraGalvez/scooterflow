@@ -1,4 +1,4 @@
-Para lanzar el proyecto hay que haber cumpkido con varios requisitos anteriores:
+Para lanzar el proyecto hay que haber cumplido con varios requisitos anteriores:
 1. Descargar el proyecto
 2. Descomprimir la carpeta
 3. Descargar Docker Desktop
