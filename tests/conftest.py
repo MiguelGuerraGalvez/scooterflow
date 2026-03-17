@@ -7,7 +7,7 @@ from app.main import app
 from app.database import Base, get_db
 
 # Creamos una fábrica de sesiones para los tests
-DATABASE_URL = os.getenv("DB_URL", "postgresql://user:user@localhost:5432/scooter")
+DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://user:user@localhost:5432/scooter")
 engine = create_engine(DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

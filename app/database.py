@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 load_dotenv()
 
 # Obtenemos la URL de la base de datos
-uri = os.getenv("DB_URL")
+uri = os.environ.get("DATABASE_URL")
 
 # SQLAlchemy requiere 'postgresql://' en lugar de 'postgres://'
 if uri and uri.startswith("postgres://"):

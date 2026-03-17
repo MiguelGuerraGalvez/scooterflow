@@ -24,7 +24,7 @@ services:
      - ./alembic:/app/alembic
      - ./alembic.ini:/app/alembic.ini
    environment:
-     - DATABASE_URL=postgresql://miguel:miguel@db:5432/scooter
+    DATABASE_URL: postgresql://miguel:miguel@db:5432/scooter
    # El comando para arrancar la API directamente
    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    depends_on:
